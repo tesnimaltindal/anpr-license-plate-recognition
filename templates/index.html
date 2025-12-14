@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ANPR API Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .container { width: 60%; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        h1 { color: #333; }
+        .result-box { margin-top: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 5px; }
+        .plate { font-size: 2.5em; font-weight: bold; color: #007bff; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ANPR Plaka Okuma Hizmeti (API)</h1>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <input type="submit" value="Yükle ve Oku">
+        </form>
+
+        {% if results %}
+        <div class="result-box">
+                <h2>Anlık İşleme Sonucu</h2>
+                <div class="plate">{{ results.plate }}</div>
+                <p><strong>Güven Skoru:</strong> {{ results.confidence }}</p>
+                <p><strong>Araç ID:</strong> {{ results.car_id }}</p>
+                <p><strong>AWS S3 Yolu:</strong> <a href="{{ results.s3_url }}" target="_blank">Görüntüyü Görüntüle</a></p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
